@@ -1,13 +1,28 @@
-class Box extends BaseClass {
+class Box  {
   constructor(x, y, width, height){
-    super(x,y,width,height);
+    var options={
+      'restitution':0.8,
+      'friction':1.0,
+      'density':0.5
+    }
+    this.body=Bodies.rectangle(x,y,width,height);
+    this.x=x;
+    this.y=y;
+    this.width=width;
+    this.height=height;
+    this.color=color(random(0,255),random(0,255),random(0,255));
+    World.add(world,this.body);
     this.visible=255;
   }
   display(){
-    console.log(this.body.speed);
-    
     if(this.body.speed<6){
-      super.display();
+      push();
+      stroke("white");
+      strokeWeight(1);
+      rectMode(CENTER);
+      fill(this.color);
+      rect(this.body.position.x,this.body.position.y,this.width,this.height);
+      pop();
     }
     else{
       push();
@@ -18,4 +33,11 @@ class Box extends BaseClass {
     }
 
   }
+
+  score(){
+    if(this.visible<0 && this.visible>-1500){
+      score++;
+    }
+  }
+  
 }
